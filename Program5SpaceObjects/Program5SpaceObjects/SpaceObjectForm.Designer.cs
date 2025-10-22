@@ -32,7 +32,9 @@
             CreateSOBtn = new Button();
             label1 = new Label();
             groupBox1 = new GroupBox();
-            textBox1 = new TextBox();
+            SampleBox = new TextBox();
+            label18 = new Label();
+            TempBox = new TextBox();
             label13 = new Label();
             InstantObjectBtn = new Button();
             moonBox = new TextBox();
@@ -71,14 +73,15 @@
             groupBox6 = new GroupBox();
             SampleBtn = new Button();
             groupBox7 = new GroupBox();
+            NewZBox = new TextBox();
+            NewYBox = new TextBox();
+            NewXBox = new TextBox();
             label17 = new Label();
             label16 = new Label();
             label15 = new Label();
             label14 = new Label();
-            button1 = new Button();
-            NewXBox = new TextBox();
-            NewYBox = new TextBox();
-            NewZBox = new TextBox();
+            TravelTimeBtn = new Button();
+            ObjectActionLabel = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -97,6 +100,7 @@
             CreateSOBtn.TabIndex = 0;
             CreateSOBtn.Text = "Create new Space Object";
             CreateSOBtn.UseVisualStyleBackColor = true;
+            CreateSOBtn.Click += CreateSOBtn_Click;
             // 
             // label1
             // 
@@ -109,7 +113,9 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(SampleBox);
+            groupBox1.Controls.Add(label18);
+            groupBox1.Controls.Add(TempBox);
             groupBox1.Controls.Add(label13);
             groupBox1.Controls.Add(InstantObjectBtn);
             groupBox1.Controls.Add(moonBox);
@@ -143,12 +149,28 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "SpaceObject Parameters";
             // 
-            // textBox1
+            // SampleBox
             // 
-            textBox1.Location = new Point(275, 143);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(64, 27);
-            textBox1.TabIndex = 26;
+            SampleBox.Location = new Point(357, 179);
+            SampleBox.Name = "SampleBox";
+            SampleBox.Size = new Size(64, 27);
+            SampleBox.TabIndex = 28;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(283, 182);
+            label18.Name = "label18";
+            label18.Size = new Size(68, 20);
+            label18.TabIndex = 27;
+            label18.Text = "Samples:";
+            // 
+            // TempBox
+            // 
+            TempBox.Location = new Point(275, 143);
+            TempBox.Name = "TempBox";
+            TempBox.Size = new Size(64, 27);
+            TempBox.TabIndex = 26;
             // 
             // label13
             // 
@@ -167,6 +189,7 @@
             InstantObjectBtn.TabIndex = 24;
             InstantObjectBtn.Text = "Instantiate";
             InstantObjectBtn.UseVisualStyleBackColor = true;
+            InstantObjectBtn.Click += InstantObjectBtn_Click;
             // 
             // moonBox
             // 
@@ -352,6 +375,7 @@
             TypeBtn.TabIndex = 2;
             TypeBtn.Text = "Next";
             TypeBtn.UseVisualStyleBackColor = true;
+            TypeBtn.Click += TypeBtn_Click;
             // 
             // label12
             // 
@@ -364,6 +388,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(ObjectActionLabel);
             groupBox2.Controls.Add(SpaceObjectReadout);
             groupBox2.Controls.Add(pictureBox1);
             groupBox2.Location = new Point(567, 64);
@@ -376,11 +401,10 @@
             // SpaceObjectReadout
             // 
             SpaceObjectReadout.AutoSize = true;
-            SpaceObjectReadout.Location = new Point(22, 217);
+            SpaceObjectReadout.Location = new Point(31, 38);
             SpaceObjectReadout.Name = "SpaceObjectReadout";
-            SpaceObjectReadout.Size = new Size(205, 20);
+            SpaceObjectReadout.Size = new Size(0, 20);
             SpaceObjectReadout.TabIndex = 5;
-            SpaceObjectReadout.Text = "Space Object data prints here";
             // 
             // pictureBox1
             // 
@@ -409,6 +433,7 @@
             MoveBtn.TabIndex = 0;
             MoveBtn.Text = "Move";
             MoveBtn.UseVisualStyleBackColor = true;
+            MoveBtn.Click += MoveBtn_Click;
             // 
             // groupBox4
             // 
@@ -428,6 +453,7 @@
             RotateBtn.TabIndex = 0;
             RotateBtn.Text = "Rotate";
             RotateBtn.UseVisualStyleBackColor = true;
+            RotateBtn.Click += RotateBtn_Click;
             // 
             // groupBox5
             // 
@@ -447,6 +473,7 @@
             ClassificationBtn.TabIndex = 0;
             ClassificationBtn.Text = "Classify";
             ClassificationBtn.UseVisualStyleBackColor = true;
+            ClassificationBtn.Click += ClassificationBtn_Click;
             // 
             // groupBox6
             // 
@@ -466,6 +493,7 @@
             SampleBtn.TabIndex = 0;
             SampleBtn.Text = "Sample";
             SampleBtn.UseVisualStyleBackColor = true;
+            SampleBtn.Click += SampleBtn_Click;
             // 
             // groupBox7
             // 
@@ -476,7 +504,7 @@
             groupBox7.Controls.Add(label16);
             groupBox7.Controls.Add(label15);
             groupBox7.Controls.Add(label14);
-            groupBox7.Controls.Add(button1);
+            groupBox7.Controls.Add(TravelTimeBtn);
             groupBox7.Location = new Point(866, 284);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new Size(144, 203);
@@ -484,10 +512,31 @@
             groupBox7.TabStop = false;
             groupBox7.Text = "Find Travel Time";
             // 
+            // NewZBox
+            // 
+            NewZBox.Location = new Point(47, 125);
+            NewZBox.Name = "NewZBox";
+            NewZBox.Size = new Size(65, 27);
+            NewZBox.TabIndex = 7;
+            // 
+            // NewYBox
+            // 
+            NewYBox.Location = new Point(47, 93);
+            NewYBox.Name = "NewYBox";
+            NewYBox.Size = new Size(65, 27);
+            NewYBox.TabIndex = 6;
+            // 
+            // NewXBox
+            // 
+            NewXBox.Location = new Point(47, 60);
+            NewXBox.Name = "NewXBox";
+            NewXBox.Size = new Size(65, 27);
+            NewXBox.TabIndex = 5;
+            // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(20, 125);
+            label17.Location = new Point(20, 130);
             label17.Name = "label17";
             label17.Size = new Size(21, 20);
             label17.TabIndex = 4;
@@ -496,7 +545,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(21, 96);
+            label16.Location = new Point(20, 96);
             label16.Name = "label16";
             label16.Size = new Size(20, 20);
             label16.TabIndex = 3;
@@ -520,41 +569,29 @@
             label14.TabIndex = 1;
             label14.Text = "New Destination:";
             // 
-            // button1
+            // TravelTimeBtn
             // 
-            button1.Location = new Point(31, 171);
-            button1.Name = "button1";
-            button1.Size = new Size(79, 26);
-            button1.TabIndex = 0;
-            button1.Text = "Calculate";
-            button1.UseVisualStyleBackColor = true;
+            TravelTimeBtn.Location = new Point(31, 171);
+            TravelTimeBtn.Name = "TravelTimeBtn";
+            TravelTimeBtn.Size = new Size(79, 26);
+            TravelTimeBtn.TabIndex = 0;
+            TravelTimeBtn.Text = "Calculate";
+            TravelTimeBtn.UseVisualStyleBackColor = true;
+            TravelTimeBtn.Click += TravelTimeBtn_Click;
             // 
-            // NewXBox
+            // ObjectActionLabel
             // 
-            NewXBox.Location = new Point(47, 55);
-            NewXBox.Name = "NewXBox";
-            NewXBox.Size = new Size(65, 27);
-            NewXBox.TabIndex = 5;
-            // 
-            // NewYBox
-            // 
-            NewYBox.Location = new Point(47, 89);
-            NewYBox.Name = "NewYBox";
-            NewYBox.Size = new Size(65, 27);
-            NewYBox.TabIndex = 6;
-            // 
-            // NewZBox
-            // 
-            NewZBox.Location = new Point(47, 122);
-            NewZBox.Name = "NewZBox";
-            NewZBox.Size = new Size(65, 27);
-            NewZBox.TabIndex = 7;
+            ObjectActionLabel.AutoSize = true;
+            ObjectActionLabel.Location = new Point(20, 230);
+            ObjectActionLabel.Name = "ObjectActionLabel";
+            ObjectActionLabel.Size = new Size(0, 20);
+            ObjectActionLabel.TabIndex = 6;
             // 
             // SpaceObjectForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1115, 516);
+            ClientSize = new Size(1039, 516);
             Controls.Add(groupBox7);
             Controls.Add(groupBox6);
             Controls.Add(groupBox5);
@@ -612,7 +649,7 @@
         private Label label12;
         private Button InstantObjectBtn;
         private Label label13;
-        private TextBox textBox1;
+        private TextBox TempBox;
         private GroupBox groupBox2;
         private PictureBox pictureBox1;
         private Label SpaceObjectReadout;
@@ -625,7 +662,7 @@
         private GroupBox groupBox6;
         private Button SampleBtn;
         private GroupBox groupBox7;
-        private Button button1;
+        private Button TravelTimeBtn;
         private Label label17;
         private Label label16;
         private Label label15;
@@ -633,5 +670,8 @@
         private TextBox NewZBox;
         private TextBox NewYBox;
         private TextBox NewXBox;
+        private TextBox SampleBox;
+        private Label label18;
+        private Label ObjectActionLabel;
     }
 }

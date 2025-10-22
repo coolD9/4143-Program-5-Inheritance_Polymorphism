@@ -266,5 +266,3 @@ namespace Program5SpaceObjects
         }
     }
 }
-
-
