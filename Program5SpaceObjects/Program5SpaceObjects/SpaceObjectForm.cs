@@ -1,170 +1,270 @@
-namespace SpaceObjectsLib
+using SpaceObjectsLib;
+using System;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace Program5SpaceObjects
 {
-    public abstract class SpaceObject
+    public partial class SpaceObjectForm : Form
     {
-        public string Name { get; set; }
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        private SpaceObject[] spaceObjects = new SpaceObject[10];
+        private int objectCount = 0;
+        private SpaceObject currentObject;
+        public string selectedType;
 
 
-        public abstract string GetInfo();
-    }
-    public abstract class Being : SpaceObject
-    {
-        public int Arms { get; set; }
-
-        public void Move()
+        public SpaceObjectForm()
         {
-            Random rand = new Random();
+            InitializeComponent();
+            DisableMainButtons();
+        }
 
-            if (this.X == 0 || this.Y == 0 || this.Z == 0)
+        public void DisableMainButtons()
+        {
+            TypeBox.Enabled = false;
+            TypeBtn.Enabled = false;
+            InstantObjectBtn.Enabled = false;
+            NameBox.Enabled = false;
+            XBox.Enabled = false;
+            YBox.Enabled = false;
+            ZBox.Enabled = false;
+            RadBox.Enabled = false;
+            TempBox.Enabled = false;
+            ArmBox.Enabled = false;
+            HeightBox.Enabled = false;
+            PLBox.Enabled = false;
+            SpeedBox.Enabled = false;
+            moonBox.Enabled = false;
+            MoveBtn.Enabled = false;
+            RotateBtn.Enabled = false;
+            ClassificationBtn.Enabled = false;
+            SampleBtn.Enabled = false;
+            TravelTimeBtn.Enabled = false;
+            NewXBox.Enabled = false;
+            NewYBox.Enabled = false;
+            NewZBox.Enabled = false;
+            SampleBox.Enabled = false;
+        }
+
+        public void DisableDataComponents()
+        {
+            TypeBox.Enabled = false;
+            InstantObjectBtn.Enabled = false;
+            NameBox.Enabled = false;
+            XBox.Enabled = false;
+            YBox.Enabled = false;
+            ZBox.Enabled = false;
+            RadBox.Enabled = false;
+            TempBox.Enabled = false;
+            ArmBox.Enabled = false;
+            HeightBox.Enabled = false;
+            PLBox.Enabled = false;
+            SpeedBox.Enabled = false;
+            moonBox.Enabled = false;
+            SampleBox.Enabled = false;
+        }
+
+        public void EnablePrimeComponents()
+        {
+            NameBox.Enabled = true;
+            XBox.Enabled = true;
+            YBox.Enabled = true;
+            ZBox.Enabled = true;
+            InstantObjectBtn.Enabled = true;
+        }
+
+        public void EnableTypeComponents()
+        {
+            TypeBox.Enabled = true;
+            TypeBtn.Enabled = true;
+        }
+        public void DisableTypeComponents()
+        {
+            TypeBox.Enabled = false;
+            TypeBtn.Enabled = false;
+        }
+
+        private void CreateSOBtn_Click(object sender, EventArgs e)
+        {
+            // This should just enable the textbox and buttons for the object type
+            CreateSOBtn.Enabled = false;
+            EnableTypeComponents();
+        }
+
+        private void TypeBtn_Click(object sender, EventArgs e)
+        {
+            // This should enable components based on the type of object selected
+            if (TypeBox.Text == "Star")
             {
-                X += rand.Next(0, 2);
-                Y += rand.Next(0, 2);
-                Z += rand.Next(0, 2);
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                RadBox.Enabled = true;
+                TempBox.Enabled = true;
+            }
+            else if (TypeBox.Text == "Planet")
+            {
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                RadBox.Enabled = true;
+                moonBox.Enabled = true;
+            }
+            else if (TypeBox.Text == "Spaceship")
+            {
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                SpeedBox.Enabled = true;
+                PLBox.Enabled = true;
+            }
+            else if (TypeBox.Text == "Earthling")
+            {
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                HeightBox.Enabled = true;
+            }
+            else if (TypeBox.Text == "Alien")
+            {
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                HeightBox.Enabled = true;
+                ArmBox.Enabled = true;
+            }
+            else if (TypeBox.Text == "Probe")
+            {
+                selectedType = TypeBox.Text;
+                EnablePrimeComponents();
+                DisableTypeComponents();
+                SampleBox.Enabled = true;
             }
             else
+                MessageBox.Show("Invalid type! Please enter a valid SpaceObject type (Star, Planet, Probe, etc.)\nRemember to capitalize!");
+        }
+
+        private void InstantObjectBtn_Click(object sender, EventArgs e)
+        {
+            // THis should create the object using the data entered and using the object constructor
+            CreateSOBtn.Enabled = true;
+            DisableDataComponents();
+
+
+            SpaceObject spaceObj = null; // will hold whatever object we create
+
+
+            try
             {
-                X += rand.Next(-1, 2);
-                Y += rand.Next(-1, 2);
-                Z += rand.Next(-1, 2);
+                // Read basic inputs (all objects have at least these)
+                string name = NameBox.Text;
+                double x = Convert.ToDouble(XBox.Text);
+                double y = Convert.ToDouble(YBox.Text);
+                double z = Convert.ToDouble(ZBox.Text);
+
+                switch (selectedType)
+                {
+                    case "Star":
+                        int radius = Convert.ToInt32(RadBox.Text);
+                        int temp = Convert.ToInt32(TempBox.Text);
+                        spaceObj = new Star(name, radius, temp, x, y, z);
+                        ClassificationBtn.Enabled = true;
+                        break;
+
+                    case "Planet":
+                        int moons = Convert.ToInt32(moonBox.Text);
+                        int planetRadius = Convert.ToInt32(RadBox.Text);
+                        spaceObj = new Planet(name, planetRadius, moons, x, y, z);
+                        RotateBtn.Enabled = true;
+                        break;
+
+                    case "Spaceship":
+                        int payload = Convert.ToInt32(PLBox.Text);
+                        int speed = Convert.ToInt32(SpeedBox.Text);
+                        spaceObj = new SpaceShip(name, payload, speed, x, y, z);
+                        TravelTimeBtn.Enabled = true;
+                        NewXBox.Enabled = true;
+                        NewYBox.Enabled = true;
+                        NewZBox.Enabled = true;
+                        break;
+
+                    case "Probe":
+                        int samples = Convert.ToInt32(SampleBox.Text);
+                        spaceObj = new Probe(name, samples, x, y, z);
+                        SampleBtn.Enabled = true;
+                        break;
+
+                    case "Earthling":
+                        double heightE = Convert.ToDouble(HeightBox.Text);
+                        spaceObj = new Earthling(name, heightE, x, y, z);
+                        MoveBtn.Enabled = true;
+                        break;
+
+                    case "Alien":
+                        int arms = Convert.ToInt32(ArmBox.Text);
+                        double heightA = Convert.ToDouble(HeightBox.Text);
+                        spaceObj = new Alien(name, arms, heightA, x, y, z);
+                        MoveBtn.Enabled = true;
+                        break;
+                }
+
+                // Show the object's info
+                SpaceObjectReadout.Text = spaceObj.GetInfo();
+
+                currentObject = spaceObj;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\nPlease check your inputs.");
             }
         }
-    }
 
-    public class Star : SpaceObject
-    {
-        private int Radius, Temp;
+        
 
-        public Star(string name, int radius, int temp, double x, double y, double z)
+        private void MoveBtn_Click(object sender, EventArgs e)
         {
-            this.Name = name;
-            this.Radius = radius;
-            this.Temp = temp;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-
+            // call the move method
+            if (currentObject is Being being)
+                being.Move();
         }
 
-        public string DetermineClassification()
+        private void RotateBtn_Click(object sender, EventArgs e)
         {
-            if (this.Radius < 300000 && this.Temp < 4000)
-                return "Red Dwarf";
-            else if (this.Radius < 700000 && this.Temp < 6000)
-                return "Main Sequence (Sun-like)";
-            else if (this.Radius < 1000000 && this.Temp >= 6000 && this.Temp < 10000)
-                return "Blue-White Main Sequence";
-            else if (this.Radius >= 1000000 && this.Temp < 5000000)
-                return "Giant";
-            else if (this.Radius >= 5000000)
-                return "Supergiant";
-            else
-                return "Unknown Type";
+            // call the rotate method
+            if (currentObject is Planet planet)
+                ObjectActionLabel.Text = planet.Rotation();
         }
 
-        public override string GetInfo() => $"Star {Name}, radius of {Radius}, Location: {X}, {Y}, {Z}";
-    }
-
-    public class Planet : SpaceObject
-    {
-        private int Radius;
-        private int Moons;
-
-        public Planet(string name, int radius, int moons, double x, double y, double z)
+        private void ClassificationBtn_Click(object sender, EventArgs e)
         {
-            this.Name = name;
-            this.Moons = moons;
-            this.Radius = radius;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            // call the classification method
+            if (currentObject is Star star)
+            {
+                string StarClass = star.DetermineClassification();
+                ObjectActionLabel.Text = $"Star Classification: {StarClass}";
+            }
         }
 
-        public string Rotation()
+        private void SampleBtn_Click(object sender, EventArgs e)
         {
-            return "The planet spins on its axis.";
+            // call the sample method
+            if (currentObject is Probe probe)
+                probe.TakeSample();
         }
 
-        public override string GetInfo() => $"Planet {Name}, radius of {Radius}, {Moons} moons, Location: {X}, {Y}, {Z}";
-    }
-
-    public class SpaceShip : SpaceObject
-    {
-        private int Payload, Speed;
-
-        public SpaceShip(string name, int payload, int speed, double x, double y, double z)
+        private void TravelTimeBtn_Click(object sender, EventArgs e)
         {
-            this.Name = name;
-            this.Payload = payload;
-            this.Speed = speed;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            // calls the TravelTime method using the values from the textboxes
+            if (currentObject is SpaceShip ship)
+            {
+                int dX = Convert.ToInt32(NewXBox.Text);
+                int dY = Convert.ToInt32(NewYBox.Text);
+                int dZ = Convert.ToInt32(NewZBox.Text);
+                double Time = ship.StarTravel(dX, dY, dZ);
+                ObjectActionLabel.Text = $"Ship will reach destination in {Time} hours.";
+            }
         }
-
-        public double StarTravel(int destX, int destY, int destZ)
-        {
-            double distance = Math.Sqrt(Math.Pow(destX - X, 2) + Math.Pow(destY - Y, 2) + Math.Pow(destZ - Z, 2));
-
-            return (distance * 3.262) / this.Speed;
-        }
-        public override string GetInfo() => $"Spaceship {Name}, payload of {Payload} tons, speed of {Speed} ly/hr, Location: {X}, {Y}, {Z}";
-    }
-
-    public class Probe : SpaceObject
-    {
-        private int Samples;
-
-        public Probe(string name, int samples, double x, double y, double z)
-        {
-            this.Name = name;
-            this.Samples = samples;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-        }
-
-        public void TakeSample()
-        {
-            this.Samples++;
-        }
-
-        public override string GetInfo() => $"Probe {Name}, number of samples: {Samples}, Location: {X}, {Y}, {Z}";
-    }
-
-    public class Earthling : Being
-    {
-        private double Height;
-        public Earthling(string name, double height, double x, double y, double z)
-        {
-            this.Name = name;
-            this.Height = height;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.Arms = 2;
-        }
-
-        public override string GetInfo() => $"Earthling {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
-    }
-
-    public class Alien : Being
-    {
-        private double Height;
-
-        public Alien(string name, int arms, double height, double x, double y, double z)
-        {
-            this.Name = name;
-            this.Arms = arms;
-            this.Height = height;
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-        }
-
-        public override string GetInfo() => $"Alien {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
     }
 }
+
 
