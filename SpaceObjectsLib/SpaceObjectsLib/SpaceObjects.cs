@@ -2,7 +2,7 @@
 {
     public abstract class SpaceObject
     {
-        public required string Name { get; set; }
+        public string Name { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
@@ -176,3 +176,4 @@
         public override string GetInfo() => $"Alien {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
     }
 }
+
