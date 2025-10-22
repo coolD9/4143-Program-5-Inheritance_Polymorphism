@@ -16,8 +16,22 @@ namespace SpaceObjectsLibrary
             Arms = arms;
         }
 
-        public void move(int dx, int dy, int dz) {
-            
+        public void Move()
+        {
+            Random rand = new Random();
+
+            if (this.X == 0 || this.Y == 0 || this.Z == 0)
+            {
+                X += rand.Next(0, 2);
+                Y += rand.Next(0, 2);
+                Z += rand.Next(0, 2);
+            }
+            else
+            {
+                X += rand.Next(-1, 2);
+                Y += rand.Next(-1, 2);
+                Z += rand.Next(-1, 2);
+            }
         }
 
 
@@ -30,4 +44,5 @@ namespace SpaceObjectsLibrary
         }
     }
 }
+
 
