@@ -1,0 +1,11 @@
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\bin\Debug\net8.0\SpaceObjectsLib.deps.json
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\bin\Debug\net8.0\SpaceObjectsLib.dll
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\bin\Debug\net8.0\SpaceObjectsLib.pdb
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.AssemblyInfoInputs.cache
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.AssemblyInfo.cs
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.csproj.CoreCompileInputs.cache
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.dll
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\refint\SpaceObjectsLib.dll
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\SpaceObjectsLib.pdb
+C:\Users\rcric\source\repos\SpaceObjectsLib\SpaceObjectsLib\obj\Debug\net8.0\ref\SpaceObjectsLib.dll
