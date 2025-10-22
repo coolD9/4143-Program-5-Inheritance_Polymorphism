@@ -7,11 +7,20 @@ using System.Threading.Tasks;
 namespace SpaceObjectsLibrary
 {
     public class Probe : SpaceObjects {
-        int x, y, z;
+        private int x, y, z;
+
+        public double Payload { get; set; }
+        public int Samples { get; set; }
 
         public override string Name
         {
             get { return "Probe"; }
         }
+
+        public override string ToString()
+        {
+            return $"{Name} at ({X}, {Y}, {Z}), Payload: {Payload}, Samples: {Samples}";
+        }
     }
 }
+
