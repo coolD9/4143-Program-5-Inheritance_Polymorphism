@@ -14,10 +14,44 @@ namespace Program5SpaceObjects
             InitializeComponent();
         }
 
-        public void disableMainComponents() {
-            
+        private void CreateSOBtn_Click(object sender, EventArgs e)
+        {
+            // This should just enable the textbox and buttons for the object type
         }
-        
+
+        private void InstantObjectBtn_Click(object sender, EventArgs e)
+        {
+            // THis should create the object using the data entered and using the object constructor
+        }
+
+        private void TypeBtn_Click(object sender, EventArgs e)
+        {
+            // This should enable components based on the type of object selected
+        }
+
+        private void MoveBtn_Click(object sender, EventArgs e)
+        {
+            // call the move method
+        }
+
+        private void RotateBtn_Click(object sender, EventArgs e)
+        {
+            // call the rotate method
+        }
+
+        private void ClassificationBtn_Click(object sender, EventArgs e)
+        {
+            // call the classification method
+        }
+
+        private void SampleBtn_Click(object sender, EventArgs e)
+        {
+            // call the sample method
+        }
+
+        private void TravelTimeBtn_Click(object sender, EventArgs e)
+        {
+            // calls the TravelTime method using the values from the textboxes
+        }
     }
 }
-
