@@ -14,6 +14,10 @@ namespace Program5SpaceObjects
             InitializeComponent();
         }
 
+        public void disableMainComponents() {
+            
+        }
         
     }
 }
+
