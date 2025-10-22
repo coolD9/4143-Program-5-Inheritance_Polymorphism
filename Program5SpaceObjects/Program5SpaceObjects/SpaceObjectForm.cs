@@ -1,133 +1,170 @@
-using SpaceObjectsLib;
-using System;
-using System.Windows.Forms;
-
-namespace Program5SpaceObjects
+namespace SpaceObjectsLib
 {
-    public partial class SpaceObjectForm : Form
+    public abstract class SpaceObject
     {
-        private SpaceObject[] spaceObjects = new SpaceObject[10];
-        private int objectCount = 0;
+        public string Name { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Z { get; set; }
 
-        public SpaceObjectForm()
+
+        public abstract string GetInfo();
+    }
+    public abstract class Being : SpaceObject
+    {
+        public int Arms { get; set; }
+
+        public void Move()
         {
-            InitializeComponent();
-        }
+            Random rand = new Random();
 
-        private void CreateSOBtn_Click(object sender, EventArgs e)
-        {
-            //.TextBox = true; 
-        }
-
-        private void InstantObjectBtn_Click(object sender, EventArgs e)
-        {
-            // Get what the user typed
-            string type = objectTypeTextBox.Text.Trim().ToLower();
-
-            SpaceObject spaceObj = null; // will hold whatever object we create
-
-            try
+            if (this.X == 0 || this.Y == 0 || this.Z == 0)
             {
-                // Read basic inputs (all objects have at least these)
-                string name = nameTextBox.Text;
-                double x = Convert.ToDouble(xTextBox.Text);
-                double y = Convert.ToDouble(yTextBox.Text);
-                double z = Convert.ToDouble(zTextBox.Text);
-
-                switch (type)
-                {
-                    case "Star":
-                        int radius = Convert.ToInt32(radiusTextBox.Text);
-                        int temp = Convert.ToInt32(tempTextBox.Text);
-                        spaceObj = new Star(name, radius, temp, x, y, z);
-                        break;
-
-                    case "Planet":
-                        int moons = Convert.ToInt32(moonsTextBox.Text);
-                        int planetRadius = Convert.ToInt32(radiusTextBox.Text);
-                        spaceObj = new Planet(name, planetRadius, moons, x, y, z);
-                        break;
-
-                    case "Spaceship":
-                        int payload = Convert.ToInt32(payloadTextBox.Text);
-                        int speed = Convert.ToInt32(speedTextBox.Text);
-                        spaceObj = new SpaceShip(name, payload, speed, x, y, z);
-                        break;
-        
-                    case "Probe":
-                        int samples = Convert.ToInt32(samplesTextBox.Text);
-                        spaceObj = new Probe(name, samples, x, y, z);
-                        break;
-        
-                    case "Earthling":
-                        int heightE = Convert.ToInt32(heightTextBox.Text);
-                        spaceObj = new Earthling(name, heightE, x, y, z);
-                        break;
-        
-                    case "Alien":
-                        int arms = Convert.ToInt32(armsTextBox.Text);
-                        int heightA = Convert.ToInt32(heightTextBox.Text);
-                        spaceObj = new Alien(name, arms, heightA, x, y, z);
-                        break;                        
-                }
-
-                // Show the object's info
-                displayLabel.Text = spaceObj.GetInfo();
+                X += rand.Next(0, 2);
+                Y += rand.Next(0, 2);
+                Z += rand.Next(0, 2);
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error: {ex.Message}\nPlease check your inputs.");
+                X += rand.Next(-1, 2);
+                Y += rand.Next(-1, 2);
+                Z += rand.Next(-1, 2);
             }
-        }
-
-
-        private void TypeBtn_Click(object sender, EventArgs e)
-        {
-            if (TypeBox.Text == "Star")
-
-            else if (TypeBox.Text == "Planet")
-
-            else if (TypeBox.Text == "SpaceShip")
-
-            else if (TypeBox.Text == "Earthling")
-
-            else if (TypeBox.Text == "Alien")
-
-            else if (TypeBox.Text == "Probe")
-
-            else {
-                MessageBox.Show("Invalid type! Please enter a valid SpaceObject type (Star, Planet, Probe, etc.)\nRemember to capitalize!");
-            }
-        }
-
-        private void MoveBtn_Click(object sender, EventArgs e)
-        {
-            this.Move();
-        }
-
-        private void RotateBtn_Click(object sender, EventArgs e)
-        {
-            this.Rotation(); 
-        }
-
-        private void ClassificationBtn_Click(object sender, EventArgs e)
-        {
-            this.DetermineClassification();
-        }
-
-        private void SampleBtn_Click(object sender, EventArgs e)
-        {
-            this.TakeSample();
-        }
-
-        private void TravelTimeBtn_Click(object sender, EventArgs e)
-        {
-            int dX = Convert.ToInt32(NewXBox.Text);
-            int dY = Convert.ToInt32(NewYBox.Text);
-            int dZ = Convert.ToInt32(NewZBox.Text);
-            this.StarTravel(dX, dY, dZ);
         }
     }
-}
 
+    public class Star : SpaceObject
+    {
+        private int Radius, Temp;
+
+        public Star(string name, int radius, int temp, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Radius = radius;
+            this.Temp = temp;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+
+        }
+
+        public string DetermineClassification()
+        {
+            if (this.Radius < 300000 && this.Temp < 4000)
+                return "Red Dwarf";
+            else if (this.Radius < 700000 && this.Temp < 6000)
+                return "Main Sequence (Sun-like)";
+            else if (this.Radius < 1000000 && this.Temp >= 6000 && this.Temp < 10000)
+                return "Blue-White Main Sequence";
+            else if (this.Radius >= 1000000 && this.Temp < 5000000)
+                return "Giant";
+            else if (this.Radius >= 5000000)
+                return "Supergiant";
+            else
+                return "Unknown Type";
+        }
+
+        public override string GetInfo() => $"Star {Name}, radius of {Radius}, Location: {X}, {Y}, {Z}";
+    }
+
+    public class Planet : SpaceObject
+    {
+        private int Radius;
+        private int Moons;
+
+        public Planet(string name, int radius, int moons, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Moons = moons;
+            this.Radius = radius;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+
+        public string Rotation()
+        {
+            return "The planet spins on its axis.";
+        }
+
+        public override string GetInfo() => $"Planet {Name}, radius of {Radius}, {Moons} moons, Location: {X}, {Y}, {Z}";
+    }
+
+    public class SpaceShip : SpaceObject
+    {
+        private int Payload, Speed;
+
+        public SpaceShip(string name, int payload, int speed, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Payload = payload;
+            this.Speed = speed;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+
+        public double StarTravel(int destX, int destY, int destZ)
+        {
+            double distance = Math.Sqrt(Math.Pow(destX - X, 2) + Math.Pow(destY - Y, 2) + Math.Pow(destZ - Z, 2));
+
+            return (distance * 3.262) / this.Speed;
+        }
+        public override string GetInfo() => $"Spaceship {Name}, payload of {Payload} tons, speed of {Speed} ly/hr, Location: {X}, {Y}, {Z}";
+    }
+
+    public class Probe : SpaceObject
+    {
+        private int Samples;
+
+        public Probe(string name, int samples, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Samples = samples;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+
+        public void TakeSample()
+        {
+            this.Samples++;
+        }
+
+        public override string GetInfo() => $"Probe {Name}, number of samples: {Samples}, Location: {X}, {Y}, {Z}";
+    }
+
+    public class Earthling : Being
+    {
+        private double Height;
+        public Earthling(string name, double height, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Height = height;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.Arms = 2;
+        }
+
+        public override string GetInfo() => $"Earthling {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
+    }
+
+    public class Alien : Being
+    {
+        private double Height;
+
+        public Alien(string name, int arms, double height, double x, double y, double z)
+        {
+            this.Name = name;
+            this.Arms = arms;
+            this.Height = height;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+        }
+
+        public override string GetInfo() => $"Alien {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
+    }
+}
 
