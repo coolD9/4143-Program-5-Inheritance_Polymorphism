@@ -102,7 +102,7 @@ namespace Program5SpaceObjects
 
         private void MoveBtn_Click(object sender, EventArgs e)
         {
-            // call the move method
+            this.Move();
         }
 
         private void RotateBtn_Click(object sender, EventArgs e)
@@ -117,13 +117,17 @@ namespace Program5SpaceObjects
 
         private void SampleBtn_Click(object sender, EventArgs e)
         {
-            // call the sample method
+            this.TakeSample();
         }
 
         private void TravelTimeBtn_Click(object sender, EventArgs e)
         {
-            // calls the TravelTime method using the values from the textboxes
+            int dX = Convert.ToInt32(NewXBox.Text);
+            int dY = Convert.ToInt32(NewYBox.Text);
+            int dZ = Convert.ToInt32(NewZBox.Text);
+            this.StarTravel(dX, dY, dZ);
         }
     }
 }
+
 
