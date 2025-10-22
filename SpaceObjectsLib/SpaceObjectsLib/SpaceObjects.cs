@@ -36,7 +36,6 @@
     public class Star : SpaceObject
     {
         private int Radius, Temp;
-        private string Classification;
 
         public Star(string name, int radius, int temp, double x, double y, double z)
         {
@@ -47,23 +46,22 @@
             this.Y = y;
             this.Z = z;
 
-            DetermineClassification();
         }
 
-        private void DetermineClassification()
+        public string DetermineClassification()
         {
             if (this.Radius < 300000 && this.Temp < 4000)
-                this.Classification = "Red Dwarf";
+                return "Red Dwarf";
             else if (this.Radius < 700000 && this.Temp < 6000)
-                this.Classification = "Main Sequence (Sun-like)";
+                return "Main Sequence (Sun-like)";
             else if (this.Radius < 1000000 && this.Temp >= 6000 && this.Temp < 10000)
-                this.Classification = "Blue-White Main Sequence";
+                return "Blue-White Main Sequence";
             else if (this.Radius >= 1000000 && this.Temp < 5000000)
-                this.Classification = "Giant";
+                return "Giant";
             else if (this.Radius >= 5000000)
-                this.Classification = "Supergiant";
+                return "Supergiant";
             else
-                this.Classification = "Unknown Type";
+                return "Unknown Type";
         }
 
         public override string GetInfo() => $"Star {Name}, radius of {Radius}, Location: {X}, {Y}, {Z}";
@@ -84,7 +82,7 @@
             this.Z = z;
         }
 
-        private string Rotation()
+        public string Rotation()
         {
             return "The planet spins on its axis.";
         }
@@ -104,13 +102,6 @@
             this.X = x;
             this.Y = y;
             this.Z = z;
-        }
-
-        public void AddPayload()
-        {
-            int additionalPayload = this.Payload / 10;
-
-            this.Payload += additionalPayload;
         }
 
         public double StarTravel(int destX, int destY, int destZ)
@@ -145,8 +136,8 @@
 
     public class Earthling : Being
     {
-        private int Height;
-        public Earthling(string name, int height, double x, double y, double z)
+        private double Height;
+        public Earthling(string name, double height, double x, double y, double z)
         {
             this.Name = name;
             this.Height = height;
@@ -161,9 +152,9 @@
 
     public class Alien : Being
     {
-        private int Height;
+        private double Height;
 
-        public Alien(string name, int arms, int height, double x, double y, double z)
+        public Alien(string name, int arms, double height, double x, double y, double z)
         {
             this.Name = name;
             this.Arms = arms;
@@ -176,4 +167,3 @@
         public override string GetInfo() => $"Alien {Name}, {Arms} arms, {Height} feet tall, Location: {X}, {Y}, {Z}";
     }
 }
-
