@@ -13,5 +13,5 @@
 - GUI
 
 ### Adrian Robledo
-- Additional support for Backend
 - GUI & Backend marrying
+- Support for Backend & GUI
